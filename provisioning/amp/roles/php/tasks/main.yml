@@ -1,0 +1,23 @@
+---
+
+- name: Install apache2.
+  yum: name=httpd state=present
+
+- name: Install EPEL.
+  yum: name=https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm state=present
+
+- name: Install IUS repo.
+  yum: name=https://centos7.iuscommunity.org/ius-release.rpm state=present
+
+- name: Install PHP 5.6.
+  yum: name=php56u state=present
+
+- name: Add apache vhosts configuration.
+  template:
+    src: "vhost-default.conf.j2"
+    dest: "/etc/apache2/sites-available/default"
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - Restart Apache

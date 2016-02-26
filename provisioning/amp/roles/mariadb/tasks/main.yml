@@ -1,0 +1,27 @@
+---
+
+- name: install mariadb and related packages
+  yum: pkg={{ item }}
+       state=present
+  with_items:
+    - mariadb
+    - mariadb-server
+    - MySQL-python
+    - php56u-mysqlnd
+
+- name: start sql service and enable the service
+  service: name=mariadb
+           state=started
+           enabled=yes
+
+- name: Create the Drupal database
+  sudo_user: root
+  mysql_db: db={{ db_name }} state=present
+
+- name: Create the Drupal user
+  mysql_user: >
+    name={{ db_user }}
+    password={{ db_password }}
+    priv={{ db_name }}.*:ALL
+    host=localhost
+  sudo_user: root

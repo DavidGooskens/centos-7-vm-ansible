@@ -1,0 +1,30 @@
+---
+
+vagrant_hostname: centos7-ansible.dev
+vagrant_ip: 192.168.88.30
+# Virtual machine memory setup.
+vm_ram: "1024"
+
+locale: en_US.UTF-8
+language: 'en_US:en'
+timezone: Etc/UTC
+
+# Your local relative path.
+# Default to the sub-folders: data/site
+site_local: "data/site"
+
+# Your site root path.
+site_root_path: "/var/www/site/www"
+
+# Database details.
+mysql_root_password: root
+db_name: mysite
+db_user: mysite
+db_password: mysite
+
+# PHP settings.
+php_max_execution_time: "128"
+php_memory_limit: "512M"
+
+# Drush.
+drush_version: 7.*
