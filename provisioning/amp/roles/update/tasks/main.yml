@@ -1,7 +1,13 @@
 ---
 
-- name: upgrade all packages
+- name: upgrade all packages.
   yum: name=* state=latest
+
+- name: Install nano.
+  yum: name=nano state=present
+
+- name: Disable SELinux.
+  shell: setenforce 0
 
 # - name: generate locale
 #   locale_gen: name={{ locale }} state=present

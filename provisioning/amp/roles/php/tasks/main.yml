@@ -12,12 +12,17 @@
 - name: Install PHP 5.6.
   yum: name=php56u state=present
 
+- service: name=httpd state=started
+
+- name: /etc/httpd/sites-enabled directory.
+  file: path=/etc/httpd/sites-enabled state=directory mode=0755
+
 - name: Add apache vhosts configuration.
   template:
     src: "vhost-default.conf.j2"
-    dest: "/etc/apache2/sites-available/default"
+    dest: "/etc/httpd/conf.d/drupal.conf"
     owner: root
     group: root
-    mode: 0644
-  notify:
-    - Restart Apache
+    mode: 0755
+
+- service: name=httpd state=restarted
